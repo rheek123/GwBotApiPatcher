@@ -65,6 +65,9 @@ Global Const $HEADER_SALVAGE_MATS						= 0x80	;Salvages materials from item
 Global Const $HEADER_SALVAGE_MODS						= 0x81	;Salvages mods from item
 Global Const $HEADER_ITEM_USE							= 0x84	;Uses item from inventory/chest
 Global Const $HEADER_ITEM_UNEQUIP						= 0x56	;Unequip item
+Global Const $HEADER_UPGRADE							= 0x88	;used by gwapi. is it even useful? NOT TESTED
+Global Const $HEADER_UPGRADE_ARMOR_1					= 0x85	;used by gwapi. is it even useful? NOT TESTED
+Global Const $HEADER_UPGRADE_ARMOR_2					= 0x88	;used by gwapi. is it even useful? NOT TESTED
 
 ;=TRADE=
 Global Const $HEADER_TRADE_PLAYER						= 0x50	;Send trade request to player
@@ -96,6 +99,8 @@ Global Const $HEADER_BUILD_LOAD							= 0x63	;Loads a complete build
 Global Const $HEADER_CHANGE_SECONDARY					= 0x48	;Changes Secondary class (from Build window, not class changer)
 Global Const $HEADER_SKILL_USE_ALLY						= 0x4D	;used by gwapi. appears to have changed
 Global Const $HEADER_SKILL_USE_FOE						= 0x4D	;used by gwapi. appears to have changed
+Global Const $HEADER_SET_ATTRIBUTES						= 0x11	;hidden in init stuff like sendchat
+
 ;=CHEST=
 Global Const $HEADER_CHEST_OPEN							= 0x5A	;Opens a chest (with key AFAIK)
 Global Const $HEADER_GOLD_MOVE							= 0x82	;Moves Gold (from chest to inventory, and otherway around IIRC)
@@ -109,11 +114,6 @@ Global Const $HEADER_OUTPOST_RETURN 					= 0xAE	;Returns to outpost after /resig
 ;=CHAT=
 Global Const $HEADER_SEND_CHAT      					= 0x6A	;Needed for sending messages in chat
 
-;=NON CHECKED ADDITIONS=
-Global Const $HEADER_UPGRADE							= 0x88	;used by gwapi. is it even useful?
-Global Const $HEADER_UPGRADE_ARMOR_1					= 0x85	;used by gwapi. is it even useful?
-Global Const $HEADER_UPGRADE_ARMOR_2					= 0x88	;used by gwapi. is it even useful?
-Global Const $HEADER_SET_ATTRIBUTES						= 0x11	;used by gwapi. hidden in init stuff like sendchat
-
-Global Const $HEADER_MAX_ATTRIBUTES_CONST_5				= 4	;constant at word 5 of max attrib packet
-Global Const $HEADER_MAX_ATTRIBUTES_CONST_22			= 4	;constant at word 22 of max attrib packet
+;=OTHER CONSTANTS=
+Global Const $HEADER_MAX_ATTRIBUTES_CONST_5				= 4	;constant at word 5 of max attrib packet. Changed from 3 to four in most recent update
+Global Const $HEADER_MAX_ATTRIBUTES_CONST_22			= 4	;constant at word 22 of max attrib packet. Changed from 3 to four in most recent update
