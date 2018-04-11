@@ -1,0 +1,17 @@
+1.2
+	Found another header for setting attributes, which is used by LoadTemplate.
+	All calls to that function made the client crash.
+	Added that line to be handled by the patcher.
+	Added set_attribute header to GWA2_Headers.au3
+	Added upgrade_equipment headers to GWA2_Headers.au3
+	Added upgrade_equipment function detection to to GWA2_Function_Header_Table.au3
+
+1.1
+	It now catches another kind of error that Ive never encountered so far, but better safe than sorry.
+	Also improved error logs now.
+	Forgot to automagically remove the +1 from some of the gwa2 files sendpacket function.
+	added #include-once, as the detection of whether the header file has to be included or not was too optimistic.
+	Angehängte Dateien
+
+1.0
+	Initial release
