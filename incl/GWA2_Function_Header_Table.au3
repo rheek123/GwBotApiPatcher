@@ -82,6 +82,7 @@ Global $gwa2func_headers[][3] = [ _
    ["ChangeGold",					0, "$HEADER_GOLD_MOVE"], _							;Moves Gold (from chest to inventory, and otherway around IIRC)
    ["UseItem",						0, "$HEADER_ITEM_USE"], _							;Uses item from inventory/chest
    ["UseItemBySlot", 				0, "$HEADER_ITEM_USE"], _							;Uses item from inventory/chest
+   ["UseItembyModelID", 			0, "$HEADER_ITEM_USE"], _							;Uses item from inventory/chest
    ["SwitchMode",					0, "$HEADER_MODE_SWITCH"], _						;Toggles hard- and normal mode
    ["AddNpc", 						0, "$HEADER_HENCHMAN_ADD"], _						;Adds henchman to party
    ["LeaveGroup",					0, "$HEADER_PARTY_LEAVE"], _						;Leaves the party
