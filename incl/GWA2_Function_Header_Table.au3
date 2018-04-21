@@ -68,6 +68,9 @@ Global $gwa2func_headers[][3] = [ _
    ["OpenChest",					0, "$HEADER_CHEST_OPEN"], _							;Opens a chest (with key AFAIK)
    ["SetDisplayedTitle",			1, "$HEADER_TITLE_DISPLAY"], _						;Displays title (from Gigis Vaettir Bot)
    ["SetDisplayedTitle",			2, "$HEADER_TITLE_CLEAR"], _						;Hides title (from Gigis Vaettir Bot)
+   ["AsuranRank",                0, "$HEADER_TITLE_DISPLAY"], _               ;Displays the asura title
+   ["NornRank",                0, "$HEADER_TITLE_DISPLAY"], _               ;Displays the norn title
+   ["VanguardRank",                0, "$HEADER_TITLE_DISPLAY"], _               ;Displays the vanguard title
    ["SetSkillbarSkill",				0, "$HEADER_SKILL_CHANGE"], _						;Changes a skill on the skillbar
    ["ReplaceSkill", 				0, "$HEADER_SKILL_CHANGE"], _						;Changes a skill on the skillbar
    ["LoadSkillBar",					0, "$HEADER_BUILD_LOAD"], _							;Loads a complete build
@@ -96,6 +99,7 @@ Global $gwa2func_headers[][3] = [ _
    ["LeaveGH",						0, "$HEADER_GUILDHALL_LEAVE"], _					;Leaves Guildhall
    ["UseSkillBySkillID", 			1, "$HEADER_SKILL_USE_ALLY"], _
    ["UseSkillBySkillID", 			2, "$HEADER_SKILL_USE_FOE"], _
+   ["UseSkillByID", 			   0, "$HEADER_SKILL_USE_ID"], _
    ["InviteTarget", 				0, "$HEADER_INVITE_TARGET"], _
    ["InvitePlayerByID", 			0, "$HEADER_INVITE_TARGET"], _
    ["InvitePlayerByPlayerNumber", 	0, "$HEADER_INVITE_TARGET"], _
