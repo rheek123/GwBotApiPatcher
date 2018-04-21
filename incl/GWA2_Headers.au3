@@ -99,6 +99,7 @@ Global Const $HEADER_BUILD_LOAD							= 0x63	;Loads a complete build
 Global Const $HEADER_CHANGE_SECONDARY					= 0x48	;Changes Secondary class (from Build window, not class changer)
 Global Const $HEADER_SKILL_USE_ALLY						= 0x4D	;used by gwapi. appears to have changed
 Global Const $HEADER_SKILL_USE_FOE						= 0x4D	;used by gwapi. appears to have changed
+Global Const $HEADER_SKILL_USE_ID					  	= 0x4D	;
 Global Const $HEADER_SET_ATTRIBUTES						= 0x11	;hidden in init stuff like sendchat
 
 ;=CHEST=
