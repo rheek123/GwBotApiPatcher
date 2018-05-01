@@ -26,7 +26,7 @@ Global Const $HEADER_HERO_CLEAR_FLAG			= 0x1E	;Clears the heroes position flag
 Global Const $HEADER_HERO_PLACE_FLAG 			= 0x1E	;Sets the heroes position flag, hero runs to position
 Global Const $HEADER_HERO_ADD					= 0x22	;Adds hero to party
 Global Const $HEADER_HERO_KICK					= 0x23	;Kicks hero from party
-Global Const $HEADER_HEROES_KICK				= 0x23	5;Kicks ALL heroes from party
+Global Const $HEADER_HEROES_KICK				= 0x23	;Kicks ALL heroes from party
 
 ;=PARTY=
 Global Const $HEADER_PARTY_PLACE_FLAG 			= 0x1F	;Sets the party position flag, all party-npcs runs to position
