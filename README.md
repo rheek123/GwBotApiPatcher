@@ -1,4 +1,4 @@
-# Guild Wars Botting API Patcher 1.3
+# Guild Wars Botting API Patcher 1.5
 modified version of gwa2_updater by testytest
 RIP gamerevision :'(
 
