@@ -2,9 +2,9 @@
 ;#  by rheek               #
 ;#  modified by mhaendler  #
 ;###########################
-; v 1.5, many headers taken from: https://github.com/tjubutsi/gwa2
+; v 1.5 (https://github.com/rheek123/GwBotApiPatcher), many headers taken from: https://github.com/tjubutsi/gwa2
+; 
 ; This file contains all headers that gwa2 uses to communicate with the gameservers directly.
-;
 ; The headers are named variables. The names should indicate what the header is about.
 ; The comments give a litte more detail about what the header does.
 ;
