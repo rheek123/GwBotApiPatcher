@@ -26,11 +26,8 @@ Other than just updating these values, this script will replace those fixed head
 This means, patch your botting files ONCE to use the variables and then only change the header files ever again. I hope that people that have experience with getting new headers will continue to push header updates fastly.
 Hopefully in a way that is compatible with the variable naming this script uses. Else you'll have to copy the headers from an incompatible variable naming, or do the work yourself.
 
-So far this github repo has a "GWA2_Header.au3" that is up to date and compatible with my variable naming:
 
-https://github.com/haendler/GWA2
-	
-This github repo had very fast updates to address header updates. It is up to date but not compatible with my variable naming:
+This github repo had very fast updates to address header updates in the past, but it's not compatible with my variable naming:
 
 https://github.com/tjubutsi/gwa2
 	
