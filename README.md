@@ -38,21 +38,21 @@ I tried my best to detect all functions that use sendpacket. The patcher will de
 0. Make sure your patcher files are uptodate
 1. Backup the bot you want to update
 2. Double click "GWA2_Patcher.au3" and run -->ON EACH .au3 FILE<-- of the bot.
-3. If you get an ERROR message, READ the section about ERROR HANDLING. 
-    BOT IS UNSTABLE until you've done the error handling!
-4. Copy the file "GWA2_Headers.au3" from the subfolder "incl" of this archive
-    Yes, even if it is already there. The headers change...
+3. If you get an ERROR message, READ the section about ERROR HANDLING. BOT IS UNSTABLE until you've done the error handling!
+4. Copy the file "GWA2_Headers.au3" from the subfolder "incl" of this archive. Yes, even if it is already there. The headers change...
 5. Paste it into the bots folder, right where the "gwa2.au3", "gwapi.au3", ... is.
 6. Run bot.
 
 # Update after patching
 0. Make sure your patcher files are uptodate
 1. Fix headers or leech new "GWA2_Headers.au3" file
-2. Replace "GWA2_Headers.au3" inside bots folder with new version.
-    Yes, even if it is already there. The headers change...
+2. Replace "GWA2_Headers.au3" inside bots folder with new version. Yes, even if it is already there. The headers change...
 3. Run bot.
 
 # Error handling
+
+If the bot still crashes make sure you patched every file, used the newest header file and that you didnt get any error messages during patching.
+
 If you get an error message, open the file "gwa_missing_headers.txt" inside your bot's folder. It will contain all functions that the patcher did not recognize.
 
 Functions known to be unsupported so far are the cons crafting functions from some GwBibles or Addons. I couldnt replicate the packet layout they use, so I dont support them for now. If they get called from your bot, it may crash. 
