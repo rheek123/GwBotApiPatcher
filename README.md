@@ -11,7 +11,7 @@ NO SUPPORT ON ANYTHING UNRELATED TO THE PATCHER!
 
 		
 # TL;DR
-Use this script on ALL FILES of any bot, copy the included header file from folder "incl" to your bot, and it should work again. If not clear, read section Patching.
+Double click and use this script on ALL FILES of any bot, copy the included header file from folder "incl" to your bot, and it should work again. If not clear, read section Patching.
 
 Future header updates require a new/updated header file, which whill hopefully supplied soon after a new update.
 READ the patching guide. If ANY PROBLEM occurs, read the ERROR HANDLING GUIDE below.
@@ -35,17 +35,21 @@ I tried my best to detect all functions that use sendpacket. The patcher will de
 
 		
 # Patching 
+0. Make sure your patcher files are uptodate
 1. Backup the bot you want to update
-2. Run "GWA2_Patcher.au3" -->ON EACH .au3 FILE<-- of the bot.
+2. Double click "GWA2_Patcher.au3" and run -->ON EACH .au3 FILE<-- of the bot.
 3. If you get an ERROR message, READ the section about ERROR HANDLING. 
     BOT IS UNSTABLE until you've done the error handling!
 4. Copy the file "GWA2_Headers.au3" from the subfolder "incl" of this archive
+    Yes, even if it is already there. The headers change...
 5. Paste it into the bots folder, right where the "gwa2.au3", "gwapi.au3", ... is.
 6. Run bot.
 
 # Update after patching
+0. Make sure your patcher files are uptodate
 1. Fix headers or leech new "GWA2_Headers.au3" file
-2. Replace "GWA2_Headers.au3" inside bots folder with new version
+2. Replace "GWA2_Headers.au3" inside bots folder with new version.
+    Yes, even if it is already there. The headers change...
 3. Run bot.
 
 # Error handling
