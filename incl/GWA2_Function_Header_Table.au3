@@ -78,6 +78,7 @@ Global $gwa2func_headers[][3] = [ _
    ["needed for sendchat",			0, "$HEADER_SEND_CHAT"], _							;Needed for sending messages in chat
    ["DestroyItem",					0, "$HEADER_ITEM_DESTROY"], _						;Destroys item in inventory
    ["IdentifyItem",					0, "$HEADER_ITEM_ID"], _							;Identifies item in inventory
+   ["IdentifyItemExplorable",		0, "$HEADER_ITEM_ID"], _
    ["MoveItem",						0, "$HEADER_ITEM_MOVE"], _							;Moves item in inventory
    ["AcceptAllItems",				0, "$HEADER_ITEMS_ACCEPT_UNCLAIMED"], _				;Accepts items not picked up in missions
    ["SalvageMaterials",				0, "$HEADER_SALVAGE_MATS"], _						;Salvages materials from item
