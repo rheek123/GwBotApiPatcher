@@ -1,4 +1,4 @@
-# Guild Wars Botting API Patcher 1.5
+# Guild Wars Botting API Patcher 1.6
 modified version of gwa2_updater by testytest
 RIP gamerevision :'(
 
@@ -11,7 +11,7 @@ NO SUPPORT ON ANYTHING UNRELATED TO THE PATCHER!
 
 		
 # TL;DR
-Double click and use this script on __all files__ of a bot, copy the included header file from folder "incl" to your bot, and it should work again. If not clear, read section Patching.
+Double click GWA2_Patcher.au3, select the main folder of your bot and it should work again. If not clear, read section Patching.
 
 Future header updates require a new/updated header file, which whill hopefully supplied soon after a new update.
 __Read__ the patching guide. If you get an error message occurs, read the guide on __Error Handling__ below.
@@ -35,29 +35,29 @@ I tried my best to detect all functions that use sendpacket. The patcher will de
 
 		
 # Patching 
-0. Make sure your patcher files are uptodate
-1. Backup the bot you want to update
-2. Double click "GWA2_Patcher.au3" and run __on each.au3 file__ of the bot.
-3. If you get an __error message__, read the section about __Error Handling__. __Bot is unstable__ until you've done the error handling!
-4. Copy the file "GWA2_Headers.au3" from the subfolder "incl" of this archive. Yes, even if it is already there. The headers change...
-5. Paste it into the bots folder, right where the "gwa2.au3", "gwapi.au3", ... is.
-6. Run bot.
+1. Make sure your patcher files are uptodate
+2. Backup the bot you want to update
+3. Double click "GWA2_Patcher.au3" and select your bot's main folder.
+4. If you get an __error message__, read the section about __Error Handling__. __Bot is unstable__ until you've done the error handling!
+5. Run bot.
 
 # Update after patching
-0. Make sure your patcher files are uptodate
+If I uploaded a new header file to this github, just follow the guide __Patching__.
+Else:
+
 1. Fix headers or leech new "GWA2_Headers.au3" file
-2. Replace "GWA2_Headers.au3" inside bots folder with new version. Yes, even if it is already there. The headers change...
+2. Replace "GWA2_Headers.au3" inside bots folder with new version. 
 3. Run bot.
 
 # Error handling
 
-If the bot still crashes make sure you patched every file, used the newest header file and that you didnt get any error messages during patching.
+If the bot still crashes make sure you used the newest header file and that you didnt get any error messages during patching.
 
 If you get an error message, open the file "gwa_missing_headers.txt" inside your bot's folder. It will contain all functions that the patcher did not recognize.
 
 Functions known to be unsupported so far are the cons crafting functions from some GwBibles or Addons. I couldnt replicate the packet layout they use, so I dont support them for now. If they get called from your bot, it may crash. 
 
-If your bot uses different functions and you have no idea how to add those to the patcher files yourself, post on the patcher thread on epvp and pray for help. Attach the "gwa_missing_headers.txt", and preferebly the WHOLE BOT as a zip file. Also supply as much info about the crash as you can. Especially at what actions it appears to crash. This way we can check for hidden dependencies.
+If your bot uses different functions and you have no idea how to add those to the patcher files yourself, post on the patcher thread on epvp and pray for help. Attach the "gwa_missing_headers.txt", and preferebly the __whole bot__ as a zip file. Also supply as much info about the crash as you can. Especially at what actions it appears to crash. This way we can check for hidden dependencies.
 	
 BEFORE POSTING MAKE SURE YOU DONT LEAK ANY INFORMATION LIKE WINDOWS USERNAME ("gwa_missing_headers.txt" contains full path to the bot), BOT CONFIG FILES WITH PATHS/CREDENTIALS/CHARACTERNAMES.
 	
