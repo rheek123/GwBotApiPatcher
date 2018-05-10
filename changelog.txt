@@ -1,3 +1,12 @@
+1.6
+	Changed the filehandling. Select the main folder of your bot instead of a file.
+	The patcher will go through all files and subfolders of the bot.
+	It will ignore subsubfolders and other folders nested deeper than that.
+	It will now automagically copy the included header file into the bot folder.
+
+1.3-1.5
+	typos, several new headers and functions
+
 1.2
 	Found another header for setting attributes, which is used by LoadTemplate.
 	All calls to that function made the client crash.
@@ -11,7 +20,7 @@
 	Also improved error logs now.
 	Forgot to automagically remove the +1 from some of the gwa2 files sendpacket function.
 	added #include-once, as the detection of whether the header file has to be included or not was too optimistic.
-	Angeh‰ngte Dateien
+	Angeh√§ngte Dateien
 
 1.0
 	Initial release
