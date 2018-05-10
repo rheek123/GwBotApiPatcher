@@ -8,16 +8,10 @@ Global $UpdateHeaders = True
 Global $UpdateOffsets = false
 Global $UpdateLines = True
 
-$FileName = FileOpenDialog("Open", @ScriptDir, "Autoit (*.au3)")
-Local $FileArray
-Local $FileArrayBak
-
-_FileReadToArray($FileName, $FileArray, 1)
-$FileArrayBak=$FileArray
-ProgressOn ( "GWA2 Patcher!", "Patching...")
-
 Global $LastFuncDecl = ""
 Global $CntHeaderInFunc = 1
+
+Global $gFileName = ""
 
 Global $MissingFunction = false
 Global $BrokenFunction = false
@@ -30,62 +24,123 @@ Global $numErrorsDetected = 0
 
 Global $lastHeader = ""
 Global $gwa_header_file_include = '#include "GWA2_Headers.au3"'
+Global $FileArrayBak
 
-For $i = 1 To $FileArray[0]
-   CheckFuncDecl($FileArray[$i], $i)
-   CheckInclude($FileArray[$i], $i)
+Local Const $sMessage = "Select the main folder of the bot you want to patch."
 
-   If Not CheckValidString($FileArray[$i]) Then ContinueLoop
-   If $UpdateOffsets Then
-	  If StringRegExp($FileArray[$i-1], "(\[2\]).*(0x2C)") And StringRegExp($FileArray[$i-2], "(\[1\]).*(0x18)") Then
-		 $lTemp = UpdateOffsetMulti($FileArray[$i])
+; Display an open dialog to select a file.
+Local $sFileSelectFolderMain = FileSelectFolder($sMessage, @ScriptDir)
+If @error Then
+   ; Display the error message.
+   MsgBox($MB_SYSTEMMODAL, "", "No folder was selected.")
+Else
+   ProcessFolder($sFileSelectFolderMain, 1)
+
+   If (Not $BrokenFunction) And ($numErrorsDetected > 0) Then
+	  MsgBox ( 1, "Warning!", 'During patching the script encountered ' &$numErrorsDetected& ' functions/headers that could not be handled. The bot is NOT necessarily stable.' &@LF&@LF&'Please check the genererated file "gwa_missing_headers.txt" to see info on the unhandled functions. Post the file (and bot, if possible) on epvp to get help.')
+   ElseIf $BrokenFunction
+	  MsgBox ( 1, "Error!", 'During patching the script encountered ' &$numErrorsDetected& ' functions/headers that could not be handled and at least of those was CRITICAL. The bot was NOT PATCHED!' &@LF&@LF&'Please check the genererated file "gwa_missing_headers.txt" to see info on the unhandled functions. Post the file (and bot, if possible) on epvp to get help.')
+	  Exit
+   EndIf
+
+   FileCopy(@ScriptDir & "\incl\GWA2_Headers.au3", $sFileSelectFolderMain & "\", $FC_OVERWRITE)
+EndIf
+
+
+
+Func ProcessFolder($sFileSelectFolder, $depth)
+
+   Local $aFileList = _FileListToArray($sFileSelectFolder, "*.au3")
+   If @error = 1 Then
+	  MsgBox($MB_SYSTEMMODAL, "", "Path was invalid.")
+	  Exit
+   EndIf
+   If @error = 4 Then
+	  MsgBox($MB_SYSTEMMODAL, "", "No file(s) were found.")
+	  Return
+   EndIf
+
+
+   ProgressOn ( "GWA2 Patcher!", "Patching...")
+   For $i = 1 To $aFileList[0]
+	  ProcessFile($sFileSelectFolder & "\" & $aFileList[$i])
+	  ProgressSet ($i/$aFileList[0]*100)
+   Next
+
+   If $depth = 0 Then
+	  Return
+   EndIf
+
+   Local $aFolderList = _FileListToArray($sFileSelectFolder, "*", $FLTA_FOLDERS)
+   If @error = 1 Then
+	  MsgBox($MB_SYSTEMMODAL, "", "Path was invalid.")
+	  Exit
+   EndIf
+   For $i = 1 To $aFolderList[0]
+	  ProcessFolder($sFileSelectFolder & "\" & $aFolderList[$i], $depth - 1)
+   Next
+EndFunc
+
+
+
+
+Func ProcessFile($FileName)
+   $gFileName = $FileName
+   ;$FileName = FileOpenDialog("Open", @ScriptDir, "Autoit ()")
+   Local $FileArray
+
+   _FileReadToArray($FileName, $FileArray, 1)
+   $FileArrayBak=$FileArray
+
+   For $i = 1 To $FileArray[0]
+	  CheckFuncDecl($FileArray[$i], $i)
+	  CheckInclude($FileArray[$i], $i)
+
+	  If Not CheckValidString($FileArray[$i]) Then ContinueLoop
+	  If $UpdateOffsets Then
+		 If StringRegExp($FileArray[$i-1], "(\[2\]).*(0x2C)") And StringRegExp($FileArray[$i-2], "(\[1\]).*(0x18)") Then
+			$lTemp = UpdateOffsetMulti($FileArray[$i])
+			If $lTemp Then
+			   ConsoleWrite($FileArray[$i] & ' -> ' & $lTemp & @CRLF)
+			   $FileArray[$i] = $lTemp
+			   ContinueLoop
+			EndIf
+		 EndIf
+		 $lTemp = UpdateOffset($FileArray[$i])
 		 If $lTemp Then
 			ConsoleWrite($FileArray[$i] & ' -> ' & $lTemp & @CRLF)
 			$FileArray[$i] = $lTemp
 			ContinueLoop
 		 EndIf
 	  EndIf
-	  $lTemp = UpdateOffset($FileArray[$i])
-	  If $lTemp Then
-		 ConsoleWrite($FileArray[$i] & ' -> ' & $lTemp & @CRLF)
-		 $FileArray[$i] = $lTemp
-		 ContinueLoop
+	  If $UpdateLines Then
+		 $lTemp = UpdateLine($FileArray[$i])
+		 If $lTemp Then
+			ConsoleWrite($FileArray[$i] & ' -> ' & $lTemp & @CRLF)
+			$FileArray[$i] = $lTemp
+			ContinueLoop
+		 EndIf
+	  EndIf
+	  If $UpdateHeaders Then
+		 $lTemp = UpdateHeader($FileArray[$i])
+		 If $lTemp Then
+			ConsoleWrite($FileArray[$i] & ' -> ' & $lTemp & @CRLF)
+			$FileArray[$i] = $lTemp
+			ContinueLoop
+		 EndIf
+	  EndIf
+   Next
+
+   If (Not  $BrokenFunction) Then
+	  ;$NewFileName = StringTrimRight($FileName, 4) & "_new.au3"
+	  $NewFileName = $gFileName
+	  _FileWriteFromArray($NewFileName, $FileArray, 1)
+
+	  If (Not $includeFound And $requireAdminFound) Then
+		 _FileWriteToLine ( $NewFileName, $requireAdminFoundAt + 1, $gwa_header_file_include)
 	  EndIf
    EndIf
-   If $UpdateLines Then
-	  $lTemp = UpdateLine($FileArray[$i])
-	  If $lTemp Then
-		 ConsoleWrite($FileArray[$i] & ' -> ' & $lTemp & @CRLF)
-		 $FileArray[$i] = $lTemp
-		 ContinueLoop
-	  EndIf
-   EndIf
-   If $UpdateHeaders Then
-	  $lTemp = UpdateHeader($FileArray[$i])
-	  If $lTemp Then
-		 ConsoleWrite($FileArray[$i] & ' -> ' & $lTemp & @CRLF)
-		 $FileArray[$i] = $lTemp
-		 ContinueLoop
-	  EndIf
-   EndIf
-   ProgressSet ($i/$FileArray[0]*100)
-Next
-
-If (Not  $BrokenFunction) Then
-   ;$NewFileName = StringTrimRight($FileName, 4) & "_new.au3"
-   $NewFileName = $FileName
-   _FileWriteFromArray($NewFileName, $FileArray, 1)
-
-   If (Not $includeFound And $requireAdminFound) Then
-	  _FileWriteToLine ( $NewFileName, $requireAdminFoundAt + 1, $gwa_header_file_include)
-   EndIf
-
-   If ($numErrorsDetected > 0) Then
-	  MsgBox ( 1, "Warning!", 'During patching the script encountered ' &$numErrorsDetected& ' functions/headers that could not be handled. The bot is NOT necessarily stable.' &@LF&@LF&'Please check the genererated file "gwa_missing_headers.txt" to see info on the unhandled functions. Post the file (and bot, if possible) on epvp to get help.')
-   EndIf
-Else
-   	  MsgBox ( 1, "Error!", 'During patching the script encountered ' &$numErrorsDetected& ' functions/headers that could not be handled and at least of those was CRITICAL. The bot was NOT PATCHED!' &@LF&@LF&'Please check the genererated file "gwa_missing_headers.txt" to see info on the unhandled functions. Post the file (and bot, if possible) on epvp to get help.')
-EndIf
+EndFunc
 
 #Region Update Functions
 ;~ Description: Returns true if string is to be processed.
@@ -101,7 +156,7 @@ Func CheckFuncDecl($aString, $aLineNr)
 	  If($MissingFunction) Then
 		 $numErrorsDetected += 1
 		 For $i = $LastFuncLineNr - 1 To $aLineNr
-			FileWriteLine ( "gwa_missing_headers.txt", $filename & " ("& $i & "): " & $FileArrayBak[$i])
+			FileWriteLine ( "gwa_missing_headers.txt", $gFileName & " ("& $i & "): " & $FileArrayBak[$i])
 		 Next
 		 $MissingFunction = false
 		 FileWriteLine ( "gwa_missing_headers.txt", "------------------------------------------")
@@ -148,7 +203,10 @@ Func UpdateHeader($aString)
 			$lHeaderEnd = StringInStr($aString, ")", 0, 1, $lHeaderStart)
 		 EndIf
 		 $lHeaderString = StringMid($aString, $lHeaderStart, $lHeaderEnd - $lHeaderStart)
-		 If(($CntHeaderInFunc > 1) And (StringCompare ( $lHeaderString, $lastHeader) <> 0) And ($gwa2func_headers[$i][$gwa2func_occurance] = 0)) Then
+
+		 Local $areVariableAlready = StringLeft(StringStripWS($lHeaderString, 8), 1) = "$" And StringLeft(StringStripWS($lastHeader, 8), 1) = "$"
+
+		 If(($CntHeaderInFunc > 1) And (StringCompare ( $lHeaderString, $lastHeader) <> 0) And (Not $areVariableAlready) And ($gwa2func_headers[$i][$gwa2func_occurance] = 0)) Then
 			$MissingFunction = true
 			$BrokenFunction = true
 		 EndIf
