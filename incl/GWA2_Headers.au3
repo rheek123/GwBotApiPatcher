@@ -84,7 +84,7 @@ Global Const $HEADER_GUILDHALL_TRAVEL			= 0xB6	;Travels to guild hall
 Global Const $HEADER_GUILDHALL_LEAVE			= 0xB8	;Leaves Guildhall
 
 ;=FACTION=
-Global Const $HEADER_FACTION_DONATE				= 0x41	;Donates kurzick/luxon faction to ally
+Global Const $HEADER_FACTION_DONATE				= 0x3B	;Donates kurzick/luxon faction to ally
 
 ;=TITLE=
 Global Const $HEADER_TITLE_DISPLAY				= 0x5D	;Displays title (from Gigis Vaettir Bot)
@@ -105,7 +105,7 @@ Global Const $HEADER_SET_ATTRIBUTES				= 0x10	;hidden in init stuff like sendcha
 
 ;=CHEST=
 Global Const $HEADER_CHEST_OPEN					= 0x59	;Opens a chest (with key AFAIK)
-Global Const $HEADER_GOLD_MOVE					= 0x82	;Moves Gold (from chest to inventory, and otherway around IIRC)
+Global Const $HEADER_GOLD_MOVE					= 0x81	;Moves Gold (from chest to inventory, and otherway around IIRC)
 
 ;=MISSION=
 Global Const $HEADER_MODE_SWITCH				= 0xA1	;Toggles hard- and normal mode
