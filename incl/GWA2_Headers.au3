@@ -40,7 +40,7 @@ Global Const $HEADER_INVITE_CANCEL				= 0xA3	;Cancel invitation of player
 Global Const $HEADER_INVITE_ACCEPT				= 0xA2	;Accept invitation to party
 
 ;=TARGET (Enemies or NPC)=
-Global Const $HEADER_CALL_TARGET				= 0x2C	;Calls the target without attacking (Ctrl+Shift+Space)
+Global Const $HEADER_CALL_TARGET				= 0x28	;Calls the target without attacking (Ctrl+Shift+Space)
 Global Const $HEADER_ATTACK_AGENT				= 0x2C	;Attacks agent (Space IIRC)
 Global Const $HEADER_CANCEL_ACTION				= 0x2E	;Cancels the current action
 Global Const $HEADER_AGENT_FOLLOW				= 0x39	;Follows the agent/npc. Ctrl+Click triggers "I am following Person" in chat
