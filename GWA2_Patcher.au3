@@ -1,6 +1,7 @@
 #include <file.au3>
 
 #include "incl\GWA2_Function_Header_Table.au3"
+#include "incl\GWA2_Update_Lines.au3"
 
 _OnAutoItErrorRegister("")
 
@@ -299,6 +300,16 @@ Func UpdateLine($aString)
    If $UpdateOffsets And StringInStr(StringStripWS($aString, 8), "[3]=0x4A4") Then
 	  Return StringLeft($aString, StringInStr($aString, "$") - 1) & "$lOffset[3] = 0x508"
    EndIf
+
+   Local $iRows = UBound($gwa2_lines, $UBOUND_ROWS) - 1
+   For $i = 0 To $iRows
+	  Local $a = StringStripWS($aString, 8)
+	  Local $b = StringStripWS($gwa2_lines[$i][$gwa2_old_line], 8)
+	  If (StringInStr($a, $b) <> 0) Then
+		 Local $lAt = StringInStr($aString, StringLeft($gwa2_lines[$i][$gwa2_old_line], 8)) - 1
+		 Return StringLeft($aString, $lAt) & $gwa2_lines[$i][$gwa2_new_line]
+	  EndIf
+   Next
 
 EndFunc
 #EndRegion
